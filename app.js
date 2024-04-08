@@ -16,6 +16,9 @@ initDb().then(() => {
 
     const indexRouter = require("./routes/index");
     app.use("/", indexRouter);
+
+    const weatherRouter = require("./routes/weather");
+    app.use("/weather", weatherRouter);
     
     const PORT = process.env.PORT || 3000;
     app.listen(PORT, () => {

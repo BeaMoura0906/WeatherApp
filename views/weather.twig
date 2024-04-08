@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="/css/style.css">
+    <title>Méteo pour {{city.name}}</title>
+</head>
+<body>
+    <a href="/">Retour</a>
+    <h1>Météo pour {{ city.name }}</h1>
+    {% if weather.properties.timeseries %}
+        {% set currentWeather = weather.properties.timeseries[0].data.instant.details %}
+        <p>Température actuelle : {{ currentWeather.air_temperature }}°C</p>
+        <p>Vitesse du vent : {{ currentWeather.wind_speed }} m/s, direction : {{ currentWeather.wind_from_direction }}°</p>
+        <p>Pression atmosphérique : {{ currentWeather.air_pressure_at_sea_level }} hPa</p>
+        
+        {% if weather.properties.timeseries[0].data.next_1_hours %}
+            {% set nextHoursWeather = weather.properties.timeseries[0].data.next_1_hours.details %}
+            <p>Précipitations prévues dans l'heure suivante : {{ nextHoursWeather.precipitation_amount }} mm</p>
+            {% set weatherCode = weather.properties.timeseries[0].data.next_1_hours.summary.symbol_code %}
+            <img src="/icons/weather/svg/{{ weatherCode }}.svg" alt="{{ weatherCode }}" class="weather-icon"/>
+        {% endif %}
+        
+    {% else %}
+        <p>Informations météorologiques non disponibles.</p>
+    {% endif %}
+</body>
+</html>

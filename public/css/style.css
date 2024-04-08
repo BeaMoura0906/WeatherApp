@@ -18,6 +18,21 @@ h1 {
     background-color: #fff;
 }
 
+li {
+    list-style: none;
+    margin: 10px 0;
+}
+
+a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+
 form input[type="text"],
 form input[type="number"],
 form button[type="submit"] {
@@ -37,4 +52,10 @@ form button[type="submit"] {
 
 form button[type="submit"]:hover {
     background-color: #0056b3;
+}
+
+.weather-icon {
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
 }

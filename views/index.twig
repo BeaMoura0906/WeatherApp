@@ -20,11 +20,9 @@
         <h2>Recherche de '{{ searchQuery }}'</h2>
     {% endif %}   
         {% for city in cities %}
-            <div class="city">
-                <h2>{{ city.name }}</h2>
-                <p>Latitude: {{ city.lat }}</p>
-                <p>Longitude: {{ city.lon }}</p>
-            </div>
+            <li class="city">
+                <a href="/weather/{{ city.id }}">{{ city.name }}</a> ({{ city.lat }}, {{ city.lon }})
+            </li>
         {% endfor %}
     
     </div>

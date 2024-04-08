@@ -5,6 +5,12 @@ async function getCities() {
     return db.all('SELECT * FROM cities');
 }
 
+async function getCityById(id) {
+    const db = await openDb();
+    const city = await db.get('SELECT * FROM cities WHERE id = ?', [id]);
+    return city;
+}
+
 async function searchCities(query) {
     const db = await openDb();
     const cities = await db.all(`SELECT * FROM cities WHERE name LIKE ?`, [`%${query}%`]);
@@ -17,4 +23,4 @@ async function addCity(name, lat, lon) {
     await db.run(sql, [name, lat, lon]);
 }
 
-module.exports = { getCities, searchCities, addCity }
+module.exports = { getCities, getCityById, searchCities, addCity }
