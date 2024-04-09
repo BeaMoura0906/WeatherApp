@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { getCities, searchCities, addCity } = require('../models/citiesModel');
+const { getCities, searchCities, addCity, deleteCity } = require('../models/citiesModel');
 
 router.get('/', async (req, res) => {
     try {
@@ -33,6 +33,16 @@ router.post('/add-city', async (req, res) => {
     } catch (err) {
         console.error(err);
         res.status(500).send('Erreur lors de l\'ajout de la ville.');
+    }
+});
+
+router.get('/delete-city/:cityId', async (req, res) => {
+    try {
+        await deleteCity(req.params.cityId);
+        res.redirect('/');
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Erreur lors de la suppression de la ville.');
     }
 });
 

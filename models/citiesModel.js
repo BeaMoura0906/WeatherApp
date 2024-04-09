@@ -23,4 +23,10 @@ async function addCity(name, lat, lon) {
     await db.run(sql, [name, lat, lon]);
 }
 
-module.exports = { getCities, getCityById, searchCities, addCity }
+async function deleteCity(id) {
+    const db = await openDb();
+    const sql = `DELETE FROM cities WHERE id = ?`;
+    await db.run(sql, [id]);
+}
+
+module.exports = { getCities, getCityById, searchCities, addCity, deleteCity };

@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "nodemon app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -15,5 +16,8 @@
     "sqlite": "^5.1.1",
     "sqlite3": "^5.1.7",
     "twig": "^1.17.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0"
   }
 }

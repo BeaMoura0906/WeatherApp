@@ -8,23 +8,24 @@
     <title>Méteo pour {{city.name}}</title>
 </head>
 <body>
-    <a href="/">Retour</a>
-    <h1>Météo pour {{ city.name }}</h1>
-    {% if weather.properties.timeseries %}
-        {% set currentWeather = weather.properties.timeseries[0].data.instant.details %}
-        <p>Température actuelle : {{ currentWeather.air_temperature }}°C</p>
-        <p>Vitesse du vent : {{ currentWeather.wind_speed }} m/s, direction : {{ currentWeather.wind_from_direction }}°</p>
-        <p>Pression atmosphérique : {{ currentWeather.air_pressure_at_sea_level }} hPa</p>
-        
-        {% if weather.properties.timeseries[0].data.next_1_hours %}
-            {% set nextHoursWeather = weather.properties.timeseries[0].data.next_1_hours.details %}
-            <p>Précipitations prévues dans l'heure suivante : {{ nextHoursWeather.precipitation_amount }} mm</p>
-            {% set weatherCode = weather.properties.timeseries[0].data.next_1_hours.summary.symbol_code %}
-            <img src="/icons/weather/svg/{{ weatherCode }}.svg" alt="{{ weatherCode }}" class="weather-icon"/>
-        {% endif %}
-        
-    {% else %}
-        <p>Informations météorologiques non disponibles.</p>
-    {% endif %}
+    <div class="container">
+        <a href="/">Retour</a>
+            <h1>Méteo pour {{city.name}}</h1>
+            <h2>Prévision météo pour aujourd'hui</h2>
+            <p> (mise à jour à {{ weather.updatedAt|date('H:i') }} le {{ weather.updatedAt|date('d/m/Y') }})</p>
+            <div class="weather-forecasts">
+                {% for forecast in weather.forecasts %}
+                    <div class="hourly-forecast">
+                        <h3>{{ forecast.time|date('H:i') }}</h3>
+                        <p>Température: {{ forecast.temperature }}°C</p>
+                        <p>Conditions météorologiques: <img src="/icons/weather/svg/{{ forecast.conditions }}.svg" alt="" class="weather-icon"></p>
+                        <p>Précipitations: {{ forecast.precipitation }} mm</p>
+                        <p>Vent: {{ forecast.wind_speed }} m/s, Direction: {{ forecast.wind_direction }}°</p>
+                        <p>Humidité: {{ forecast.humidity }}%</p>
+                        <p>Pression atmosphérique: {{ forecast.pressure }} hPa</p>
+                    </div>
+                {% endfor %}
+            </div>
+    </div>
 </body>
 </html>

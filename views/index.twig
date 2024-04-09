@@ -1,45 +1,58 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="/css/style.css">
-    <title>Weather App</title>
-</head>
-<body>
-    <h1>Weather App</h1>
+{% extends "base.twig" %}
+
+{% block header %}
     <div class="container">
-        <form action="/search" method="GET">
-            <input type="text" name="query" placeholder="Rechercher une ville">
-            <button type="submit">Rechercher</button>
+        <div class="row">
+            <div class="col">
+                <h1 class="title text-center">Météo</h1>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block main %}
+    <div class="container mt-3">
+        <form class="row g-3 align-items-center" action="/search" method="GET">
+            <div class="input-group col-auto mb-3">
+                <input type="text" class="form-control" name="query" placeholder="Rechercher une ville" aria-label="Rechercher une ville" aria-describedby="search-button">
+                <button class="btn btn-outline-primary" type="submit"><i class="bi bi-search"></i> Rechercher</button>
+            </div>
         </form>
+        <div class="row mt-3">
+            <div class="col-12 mb-3">
+                {% if searchQuery is defined %}
+                    <h2>Recherche de '{{ searchQuery }}'</h2>
+                {% else %}
+                    <h2>Villes</h2>
+                {% endif %}
+            </div>
+            
+            <div class="col-12">
+                <div class="list-group g-3">
+                    {% for city in cities %}
+                    <div class="list-group-item d-flex justify-content-between align-items-center">
+                        <a href="/weather/{{ city.id }}" class="link list-group-item-action text-decoration-none text-dark me-auto">
+                            <div>
+                                <strong>{{ city.name }}</strong> <small>({{ city.lat }}, {{ city.lon }})</small>
+                            </div>
+                        </a>
+                        <button class="btn btn-outline-danger btn-sm rounded-circle delete-city-button" data-city-id="{{ city.id }}">
+                            <i class="bi bi-x-lg"></i>
+                        </button>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-3">
+            <div class="col-12 mb-3">
+                <button type="button" class="btn btn-outline-success" id="addCityButton"><i class="bi bi-plus"></i> Ajouter une ville</button>
+            </div>
+            <div id="addCityForm" class="col-12 mb-3" style="display: none"> 
+                {% include "addCityForm.twig" %}
+            </div>
+        </div>
+
     </div>
-    <div class="container">
-    {% if searchQuery is defined %}
-        <h2>Recherche de '{{ searchQuery }}'</h2>
-    {% endif %}   
-        {% for city in cities %}
-            <li class="city">
-                <a href="/weather/{{ city.id }}">{{ city.name }}</a> ({{ city.lat }}, {{ city.lon }})
-            </li>
-        {% endfor %}
-    
-    </div>
-    <div class="container">
-        <form action="/add-city" method="POST">
-            <label for="name">Nom de la ville :</label>
-            <input type="text" id="name" name="name" required>
-
-            <label for="lat">Latitude :</label>
-            <input type="text" id="lat" name="lat" required>
-
-            <label for="lon">Longitude :</label>
-            <input type="text" id="lon" name="lon" required>
-
-            <button type="submit">Ajouter la ville</button>
-        </form>
-
-    </div>
-</body>
-</html>
+{% endblock %}
