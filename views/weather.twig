@@ -1,24 +1,32 @@
+<!-- views/weather.twig -->
+
+<!-- Base template -->
 {% extends "base.twig" %}
 
+<!-- Block main -->
 {% block main %}
     <main class="container bg-white">
         <div class="row mx-3 pb-4">
             <div class="col-md-12">
                 <div class="row mt-3">
                     <div class="col-auto mb-3">
+                        <!-- Link back to the homepage -->
                         <a href="/" role="button" class="link text-dark text-decoration-none" style="font-size: 2rem;"><i class="bi bi-arrow-left"></i></a>
                     </div>
                     <div class="col text-center">
+                        <!-- City name -->
                         <h1 class="text-center">Météo à {{ city.name }}</h1>
                     </div>
                 </div>
                 <h2>Prévisions</h2>
+                <!-- Last update date -->
                 <p>(mise à jour à {{ weather.updatedAt|date('H:i') }} le {{ weather.updatedAt|date('d/m/Y') }})</p>
             </div>
         </div>
         <div class="row">
             <div class="col-12 col-sm-12 col-md-12 col-lg-6 pb-3 px-4">
                 <div class="row row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-2 g-4" id="forecastCards">
+                    <!-- Loop through the forecasts -->
                     {% for forecast in weather.forecasts %}
                         <div class="col">
                             <div class="card h-100 position-relative">
@@ -41,21 +49,25 @@
                 </div>
                 <div class="row justify-content-center">
                     <div class="col-12 text-center">
+                        <!-- Show more button -->
                         <button id="showMoreBtn" class="btn btn-primary mt-3">Afficher plus</button>
                     </div>
                 </div>                
             </div>
             <div class="col-12 col-sm-12 col-md-12 col-lg-6 pb-3 pe-4">
                 <div class="row mb-3">
+                    <!-- Temperature chart -->
                     <canvas id="tempChart"></canvas>
                 </div>
                 <div class="row mb-3">
+                    <!-- Precipitation chart -->
                     <canvas id="precipChart"></canvas>
                 </div>
             </div>
         </div>
     </main>
     <script>
+        // Parse weather data from JSON
         var weatherData = JSON.parse('{{ weatherJSON|raw }}');
     </script>
 {% endblock %}

@@ -1,7 +1,10 @@
+// routes/index.js
+
 const express = require("express");
 const router = express.Router();
 const { getCities, searchCities, addCity, deleteCity } = require('../models/citiesModel');
 
+// Route for the index page displaying all cities
 router.get('/', async (req, res) => {
     try {
         const cities = await getCities();
@@ -12,6 +15,7 @@ router.get('/', async (req, res) => {
     }
 });
 
+// Route for the search fonctionality
 router.get('/search', async (req, res) => {
     const searchQuery = req.query.query;
     if (!searchQuery || searchQuery.trim() === '') {
@@ -26,6 +30,7 @@ router.get('/search', async (req, res) => {
     }
 });
 
+// Route for adding a new city
 router.post('/add-city', async (req, res) => {
     try {
         await addCity(req.body.name, parseFloat(req.body.lat), parseFloat(req.body.lon));
@@ -36,6 +41,7 @@ router.post('/add-city', async (req, res) => {
     }
 });
 
+// Route for deleting a city
 router.get('/delete-city/:cityId', async (req, res) => {
     try {
         await deleteCity(req.params.cityId);

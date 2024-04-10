@@ -1,5 +1,12 @@
+// initDb.js
+
 const { openDb } = require('./database');
 
+/**
+ * Initializes the database by creating a table for cities if it does not already exist.
+ *
+ * @return {Promise<void>} Promise that resolves once the database initialization is complete.
+ */
 async function initDb() {
     const db = await openDb();
     await db.exec(`CREATE TABLE IF NOT EXISTS cities (

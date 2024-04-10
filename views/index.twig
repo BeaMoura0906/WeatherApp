@@ -1,10 +1,15 @@
+<!-- views/index.twig -->
+
+<!-- Base template -->
 {% extends "base.twig" %}
 
+<!-- Block main -->
 {% block main %}
- 
+    
     <main class="mx-10 p-4 bg-white container" style="min-height: 100vh;">
         <div class="row">
             <div class="col-12 mb-4">
+                <!-- Title in fonction of search -->
                 {% if searchQuery is defined %}
                     <h2>Recherche pour '{{ searchQuery }}'</h2>
                 {% else %}
@@ -14,6 +19,7 @@
             
             <div class="col-12 px-4">
                 <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-3 g-4">
+                    <!-- Loop through cities and display them -->
                     {% for city in cities %}
                     <div class="col">
                         <div class="card h-100">
@@ -34,10 +40,12 @@
             </div>
 
         <div class="row mt-3 px-3">
+            <!-- Button to dysplay add city form -->
             <div class="col-12 text-center mb-3">
                 <button type="button" class="btn btn-success my-3" id="addCityButton">Ajouter une ville</button>
             </div>
             <div id="addCityForm" class="col-12 mb-3" style="display: none"> 
+                <!-- Add city form -->
                 {% include "addCityForm.twig" %}
             </div>
         </div>

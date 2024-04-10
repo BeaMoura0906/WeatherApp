@@ -1,6 +1,15 @@
+// services/weatherService.js
+
 const axios = require('axios');
 const cache = require('../cache');
 
+/**
+ * Retrieves weather data for a given latitude and longitude.
+ *
+ * @param {number} lat - The latitude of the location
+ * @param {number} lon - The longitude of the location
+ * @return {Promise} The weather data for the specified location
+ */
 async function getWeatherForCity(lat, lon) {
     const cacheKey = `weather_${lat}_${lon}`;
     try {

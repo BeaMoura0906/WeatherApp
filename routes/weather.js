@@ -1,8 +1,16 @@
+// routes/weather.js
+
 const express = require("express");
 const router = express.Router();
 const { getCityById } = require("../models/citiesModel");
 const { getWeatherForCity } = require("../services/weatherService");
 
+/**
+ * Processes the weather data to filter and extract hourly forecasts within a specific time range.
+ *
+ * @param {Object} weatherData - the weather data to be processed
+ * @return {Array} the array of hourly forecasts within the specified time range
+ */
 const processWeatherData = (weatherData) => {
     const forecasts = [];
     const currentTime = new Date();
@@ -37,6 +45,7 @@ const processWeatherData = (weatherData) => {
     return forecasts;
 };
 
+// Route for the weather page displaying the weather forcasts for a given city
 router.get('/:cityId', async (req, res) => {
     try {
         const city = await getCityById(req.params.cityId);

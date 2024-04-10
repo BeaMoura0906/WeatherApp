@@ -1,6 +1,9 @@
+// public\js\default.js
+
 import "bootstrap";
 import "chart.js";
 
+// Event listener for display the form for adding a city when the button is clicked
 document.addEventListener('DOMContentLoaded', function () {
     const button = document.getElementById('addCityButton');
     button.addEventListener('click', function () {
@@ -10,6 +13,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
+// Event listener for deleting a city when the button is clicked with confirmation before
 document.addEventListener('DOMContentLoaded', function() {
     document.querySelectorAll('.delete-city-button').forEach(button => {
         button.addEventListener('click', function(event) {
@@ -25,6 +29,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
+// Event listener for initializing the line chart showing temperature data
 document.addEventListener('DOMContentLoaded', function() {
     const ctx = document.getElementById('tempChart').getContext('2d');
     
@@ -77,6 +82,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
 });
 
+// Event listener for initializing the bar chart showing precipitation data
 document.addEventListener('DOMContentLoaded', function() {
     const ctx = document.getElementById('precipChart').getContext('2d');
 
@@ -111,6 +117,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
+// Event listener for "show more" button functionality wich displays more cards
 document.addEventListener('DOMContentLoaded', function() {
     const allCards = document.querySelectorAll('#forecastCards .col');
     const showMoreBtn = document.getElementById('showMoreBtn');
