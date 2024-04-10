@@ -16,26 +16,41 @@
                 <p>(mise à jour à {{ weather.updatedAt|date('H:i') }} le {{ weather.updatedAt|date('d/m/Y') }})</p>
             </div>
         </div>
-        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 mx-3 pb-3">
-            {% for forecast in weather.forecasts %}
-                <div class="col">
-                    <div class="card h-100 position-relative">
-                        <img src="/icons/weather/svg/{{ forecast.conditions }}.svg" alt="Météo" class="weather-icon position-absolute" style="top: 10px; right: 10px; width: 72px; height: 72px;">
-                        <div class="card-body">
-                            <h5 class="card-title">{{ forecast.time|date('H:i') }}</h5>
-                            <div class="d-flex justify-content-between">
-                                <span>Temp: <strong>{{ forecast.temperature }}°C</strong></span>
-                            </div>
-                            <div class="mt-2">
-                                <small>Précip: <strong>{{ forecast.precipitation }}mm</strong>, Vent: <strong>{{ forecast.wind_speed }}m/s <i class="bi bi-arrow-up-circle" style="transform: rotate({{ forecast.wind_direction }}deg); display: inline-block;"></i></strong></small>
-                            </div>
-                            <div class="mt-1">
-                                <small>Hum: <strong>{{ forecast.humidity }}%</strong>, Pression: <strong>{{ forecast.pressure }}hPa</strong></small>
+        <div class="row">
+            <div class="col-12 col-sm-6 col-md-6 col-lg-6 pb-3 px-4">
+                <div class="row row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-2 g-4">
+                    {% for forecast in weather.forecasts %}
+                        <div class="col">
+                            <div class="card h-100 position-relative">
+                                <img src="/icons/weather/svg/{{ forecast.conditions }}.svg" alt="Météo" class="weather-icon position-absolute" style="top: 10px; right: 10px; width: 72px; height: 72px;">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ forecast.time|date('H:i') }}</h5>
+                                    <div class="d-flex justify-content-between">
+                                        <span>Temp: <strong>{{ forecast.temperature }}°C</strong></span>
+                                    </div>
+                                    <div class="mt-2">
+                                        <small>Précip: <strong>{{ forecast.precipitation }}mm</strong>, Vent: <strong>{{ forecast.wind_speed }}m/s <i class="bi bi-arrow-up-circle" style="transform: rotate({{ forecast.wind_direction }}deg); display: inline-block;"></i></strong></small>
+                                    </div>
+                                    <div class="mt-1">
+                                        <small>Hum: <strong>{{ forecast.humidity }}%</strong>, Pression: <strong>{{ forecast.pressure }}hPa</strong></small>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    {% endfor %}
                 </div>
-            {% endfor %}
+            </div>
+            <div class="col-12 col-sm-6 col-md-6 col-lg-6 pb-3 pe-4">
+                <div class="row mb-3">
+                    <canvas id="tempChart"></canvas>
+                </div>
+                <div class="row mb-3">
+                    <canvas id="precipChart"></canvas>
+                </div>
+            </div>
         </div>
     </main>
+    <script>
+        var weatherData = JSON.parse('{{ weatherJSON|raw }}');
+    </script>
 {% endblock %}

@@ -39,8 +39,10 @@ router.get('/:cityId', async (req, res) => {
 
         const processedWeather  = processWeatherData(weather);
 
-        res.render('weather', { city, weather: { forecasts: processedWeather, updatedAt} });
-        console.log(city, weather);
+        const weatherJSON = JSON.stringify(processedWeather);
+
+        res.render('weather', { city, weather: { forecasts: processedWeather, updatedAt}, weatherJSON });
+        console.log(city, weather, weatherJSON);
     } catch (err) {
         console.error(err);
         res.status(500).send('Erreur lors de l\'affichage des informations météorologiques.');
