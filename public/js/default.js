@@ -110,3 +110,24 @@ document.addEventListener('DOMContentLoaded', function() {
             }
     });
 });
+
+document.addEventListener('DOMContentLoaded', function() {
+    const allCards = document.querySelectorAll('#forecastCards .col');
+    const showMoreBtn = document.getElementById('showMoreBtn');
+    
+    let initialLimit = 6;
+    
+    function updateCardsDisplay() {
+        allCards.forEach((card, index) => {
+            card.style.display = index < initialLimit ? 'block' : 'none';
+        });
+    }
+    
+    updateCardsDisplay();
+    
+    showMoreBtn.addEventListener('click', () => {
+        initialLimit = allCards.length;
+        updateCardsDisplay();
+        showMoreBtn.style.display = 'none';
+    });
+});

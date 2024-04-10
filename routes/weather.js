@@ -5,10 +5,17 @@ const { getWeatherForCity } = require("../services/weatherService");
 
 const processWeatherData = (weatherData) => {
     const forecasts = [];
-    const startTime = new Date();
+    const currentTime = new Date();
+    const startTime = new Date(currentTime);
     startTime.setHours(0, 0, 0, 0);
-    const endTime = new Date(startTime);
-    endTime.setDate(endTime.getDate() + 1);
+
+    let endTime = new Date(startTime);
+    if ( currentTime.getHours() >= 16 ) {
+      endTime.setDate(endTime.getDate() + 1);
+      endTime.setHours(12, 0, 0, 0);
+    } else {
+      endTime.setDate(endTime.getDate() + 1);
+    }
   
     for (let forecast of weatherData.properties.timeseries) {
       const forecastTime = new Date(forecast.time);

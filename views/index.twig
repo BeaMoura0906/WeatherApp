@@ -2,36 +2,39 @@
 
 {% block main %}
  
-    <main class="mx-10 p-4 bg-white container pt-5" style="min-height: 100vh;">
-        <div class="row mt-5">
-            <div class="col-12 mb-3">
+    <main class="mx-10 p-4 bg-white container" style="min-height: 100vh;">
+        <div class="row">
+            <div class="col-12 mb-4">
                 {% if searchQuery is defined %}
-                    <h2>Recherche de '{{ searchQuery }}'</h2>
+                    <h2>Recherche pour '{{ searchQuery }}'</h2>
                 {% else %}
-                    <h2 class="text-center">Villes</h2>
+                    <h2 class="text-center">Consulter la Météo des Villes</h2>
                 {% endif %}
             </div>
             
-            <div class="col-12 px-3">
-                <div class="list-group g-3">
+            <div class="col-12 px-4">
+                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-3 g-4">
                     {% for city in cities %}
-                    <div class="list-group-item d-flex justify-content-between align-items-center">
-                        <a href="/weather/{{ city.id }}" class="link list-group-item-action text-decoration-none text-dark me-auto">
-                            <div>
-                                <strong>{{ city.name }}</strong> <small>({{ city.lat }}, {{ city.lon }})</small>
+                    <div class="col">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ city.name }}</h5>
+                                <p class="card-text"><small>Coordonnées : {{ city.lat }}, {{ city.lon }}</small></p>
                             </div>
-                        </a>
-                        <button class="btn btn-outline-danger btn-sm rounded-circle delete-city-button" data-city-id="{{ city.id }}">
-                            <i class="bi bi-x-lg"></i>
-                        </button>
+                            <div class="card-footer bg-transparent">
+                                <a href="/weather/{{ city.id }}" class="btn btn-primary btn-sm">Voir Météo</a>
+                                <button class="btn btn-outline-danger btn-sm float-end delete-city-button" data-city-id="{{ city.id }}">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                            </div>
+                        </div>
                     </div>
                     {% endfor %}
                 </div>
             </div>
-        </div>
 
         <div class="row mt-3 px-3">
-            <div class="col-12 mb-3">
+            <div class="col-12 text-center mb-3">
                 <button type="button" class="btn btn-success my-3" id="addCityButton">Ajouter une ville</button>
             </div>
             <div id="addCityForm" class="col-12 mb-3" style="display: none"> 

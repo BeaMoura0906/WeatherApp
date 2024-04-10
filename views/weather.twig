@@ -1,8 +1,8 @@
 {% extends "base.twig" %}
 
 {% block main %}
-    <main class="container bg-white pt-5">
-        <div class="row mx-3 py-4">
+    <main class="container bg-white">
+        <div class="row mx-3 pb-4">
             <div class="col-md-12">
                 <div class="row mt-3">
                     <div class="col-auto mb-3">
@@ -12,13 +12,13 @@
                         <h1 class="text-center">Météo à {{ city.name }}</h1>
                     </div>
                 </div>
-                <h2>Prévision météo pour aujourd'hui</h2>
+                <h2>Prévisions</h2>
                 <p>(mise à jour à {{ weather.updatedAt|date('H:i') }} le {{ weather.updatedAt|date('d/m/Y') }})</p>
             </div>
         </div>
         <div class="row">
-            <div class="col-12 col-sm-6 col-md-6 col-lg-6 pb-3 px-4">
-                <div class="row row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-2 g-4">
+            <div class="col-12 col-sm-12 col-md-12 col-lg-6 pb-3 px-4">
+                <div class="row row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-2 g-4" id="forecastCards">
                     {% for forecast in weather.forecasts %}
                         <div class="col">
                             <div class="card h-100 position-relative">
@@ -39,8 +39,13 @@
                         </div>
                     {% endfor %}
                 </div>
+                <div class="row justify-content-center">
+                    <div class="col-12 text-center">
+                        <button id="showMoreBtn" class="btn btn-primary mt-3">Afficher plus</button>
+                    </div>
+                </div>                
             </div>
-            <div class="col-12 col-sm-6 col-md-6 col-lg-6 pb-3 pe-4">
+            <div class="col-12 col-sm-12 col-md-12 col-lg-6 pb-3 pe-4">
                 <div class="row mb-3">
                     <canvas id="tempChart"></canvas>
                 </div>
