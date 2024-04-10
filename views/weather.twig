@@ -1,31 +1,41 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="/css/style.css">
-    <title>Méteo pour {{city.name}}</title>
-</head>
-<body>
-    <div class="container">
-        <a href="/">Retour</a>
-            <h1>Méteo pour {{city.name}}</h1>
-            <h2>Prévision météo pour aujourd'hui</h2>
-            <p> (mise à jour à {{ weather.updatedAt|date('H:i') }} le {{ weather.updatedAt|date('d/m/Y') }})</p>
-            <div class="weather-forecasts">
-                {% for forecast in weather.forecasts %}
-                    <div class="hourly-forecast">
-                        <h3>{{ forecast.time|date('H:i') }}</h3>
-                        <p>Température: {{ forecast.temperature }}°C</p>
-                        <p>Conditions météorologiques: <img src="/icons/weather/svg/{{ forecast.conditions }}.svg" alt="" class="weather-icon"></p>
-                        <p>Précipitations: {{ forecast.precipitation }} mm</p>
-                        <p>Vent: {{ forecast.wind_speed }} m/s, Direction: {{ forecast.wind_direction }}°</p>
-                        <p>Humidité: {{ forecast.humidity }}%</p>
-                        <p>Pression atmosphérique: {{ forecast.pressure }} hPa</p>
+{% extends "base.twig" %}
+
+{% block main %}
+    <main class="container bg-white pt-5">
+        <div class="row mx-3 py-4">
+            <div class="col-md-12">
+                <div class="row mt-3">
+                    <div class="col-auto mb-3">
+                        <a href="/" role="button" class="link text-dark text-decoration-none" style="font-size: 2rem;"><i class="bi bi-arrow-left"></i></a>
                     </div>
-                {% endfor %}
+                    <div class="col text-center">
+                        <h1 class="text-center">Météo à {{ city.name }}</h1>
+                    </div>
+                </div>
+                <h2>Prévision météo pour aujourd'hui</h2>
+                <p>(mise à jour à {{ weather.updatedAt|date('H:i') }} le {{ weather.updatedAt|date('d/m/Y') }})</p>
             </div>
-    </div>
-</body>
-</html>
+        </div>
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 mx-3 pb-3">
+            {% for forecast in weather.forecasts %}
+                <div class="col">
+                    <div class="card h-100 position-relative">
+                        <img src="/icons/weather/svg/{{ forecast.conditions }}.svg" alt="Météo" class="weather-icon position-absolute" style="top: 10px; right: 10px; width: 72px; height: 72px;">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ forecast.time|date('H:i') }}</h5>
+                            <div class="d-flex justify-content-between">
+                                <span>Temp: <strong>{{ forecast.temperature }}°C</strong></span>
+                            </div>
+                            <div class="mt-2">
+                                <small>Précip: <strong>{{ forecast.precipitation }}mm</strong>, Vent: <strong>{{ forecast.wind_speed }}m/s <i class="bi bi-arrow-up-circle" style="transform: rotate({{ forecast.wind_direction }}deg); display: inline-block;"></i></strong></small>
+                            </div>
+                            <div class="mt-1">
+                                <small>Hum: <strong>{{ forecast.humidity }}%</strong>, Pression: <strong>{{ forecast.pressure }}hPa</strong></small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </main>
+{% endblock %}
