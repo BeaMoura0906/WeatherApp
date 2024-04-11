@@ -1,5 +1,7 @@
 // app.js
 
+// To improve fiability and security, we should add express validator for POST requests and a central error management system (like a middleware with next function). 
+
 // Import necessary module
 const express = require("express");
 const twig = require("twig");

@@ -1,5 +1,7 @@
 // tests/unit/app.test.js
 
+// Problem with app requirement without export module app, but if export app, it doesn't work because handle error 
+
 const request = require('supertest');
 const app = require('../../app');
 
