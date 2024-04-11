@@ -4,16 +4,18 @@
 const sqlite = require('sqlite');
 const sqlite3 = require('sqlite3');
 
-/**
- * Opens a connection to the database.
- *
- * @return {Promise} A Promise that resolves to a SQLite database connection.
- */
+let dbInstance;
+
 async function openDb() {
-    return sqlite.open({
+    dbInstance = await sqlite.open({
         filename: './data/weather_app.db',
         driver: sqlite3.Database
     });
+    return dbInstance;
 }
 
-module.exports = { openDb };
+async function closeDb() {
+    if (dbInstance) await dbInstance.close();
+}
+
+module.exports = { openDb, closeDb };

@@ -15,25 +15,29 @@ app.set("views", __dirname + "/views");
 // Parse URL-encoded bodies
 app.use(express.urlencoded({ extended: true }));
 
-// Init the database and start the server
-initDb().then(() => {
-    console.log("La base de données a été initialisée avec succès.");
+async function startApp() {
+    try {
+        await initDb();
+        //console.log("La base de données a été initialisée avec succès.");
 
-    // Serve static files
-    app.use(express.static('public'));
+        // Serve static files
+        app.use(express.static('public'));
 
-    // Set up the routes
-    const indexRouter = require("./routes/index");
-    app.use("/", indexRouter);
+        // Set up the routes
+        const indexRouter = require("./routes/index");
+        app.use("/", indexRouter);
 
-    const weatherRouter = require("./routes/weather");
-    app.use("/weather", weatherRouter);
-    
-    // Start the server
-    const PORT = process.env.PORT || 3000;
-    app.listen(PORT, () => {
-        console.log(`Listening on port ${PORT}`);
-    })
-}).catch(err => {
-    console.error(err);
-});
+        const weatherRouter = require("./routes/weather");
+        app.use("/weather", weatherRouter);
+        
+        // Start the server
+        const PORT = process.env.PORT || 3000;
+        app.listen(PORT, () => {
+            console.log(`Listening on port ${PORT}`);
+        });
+    } catch (err) {
+        console.error(err);
+    }
+}
+
+startApp();
