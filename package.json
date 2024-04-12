@@ -12,6 +12,7 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.19.2",
+    "express-validator": "^7.0.1",
     "sqlite": "^5.1.1",
     "sqlite3": "^5.1.7",
     "twig": "^1.17.1"

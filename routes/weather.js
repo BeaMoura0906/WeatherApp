@@ -2,6 +2,7 @@
 
 const express = require("express");
 const router = express.Router();
+const { validationResult, param } = require("express-validator");
 const { getCityById } = require("../models/citiesModel");
 const { getWeatherForCity } = require("../services/weatherService");
 
@@ -45,23 +46,30 @@ const processWeatherData = (weatherData) => {
 	return forecasts;
 };
 
-// Route for the weather page displaying the weather forcasts for a given city
-router.get('/:cityId', async (req, res) => {
+// Route for the weather page displaying the weather forcasts for a given city with validation of parameters
+router.get('/:cityId', [
+	param('cityId').isInt()
+], async (req, res, next) => {
+	const errors = validationResult(req);
+
+	if (!errors.isEmpty()) {
+		return res.status(400).json({ errors: errors.array() });
+	}
+
 	try {
-			const city = await getCityById(req.params.cityId);
-			const weather = await getWeatherForCity(city.lat, city.lon);
+		const city = await getCityById(req.params.cityId);
+		const weather = await getWeatherForCity(city.lat, city.lon);
 
-			const updatedAt = weather.properties.meta.updated_at;
+		const updatedAt = weather.properties.meta.updated_at;
 
-			const processedWeather  = processWeatherData(weather);
+		const processedWeather  = processWeatherData(weather);
 
-			const weatherJSON = JSON.stringify(processedWeather);
+		const weatherJSON = JSON.stringify(processedWeather);
 
-			res.render('weather', { city, weather: { forecasts: processedWeather, updatedAt}, weatherJSON });
-			console.log(city, weather, weatherJSON);
+		res.render('weather', { city, weather: { forecasts: processedWeather, updatedAt}, weatherJSON });
+		console.log(city, weather, weatherJSON);
 	} catch (err) {
-			console.error(err);
-			res.status(500).send('Erreur lors de l\'affichage des informations météorologiques.');
+		next(err);
 	}
 });
 

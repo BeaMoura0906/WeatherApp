@@ -1,7 +1,5 @@
 // app.js
 
-// To improve fiability and security, we should add express validator for POST requests and a central error management system (like a middleware with next function). 
-
 // Import necessary module
 const express = require("express");
 const twig = require("twig");
@@ -42,4 +40,11 @@ async function startApp() {
     }
 }
 
+// Handle errors
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).send('Quelque chose a mal tourné !');
+});
+
+// Start the application
 startApp();
