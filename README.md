@@ -15,14 +15,26 @@ Ce projet nécessite Node.js et npm pour s'exécuter localement. Assurez-vous de
 Suivez ces étapes pour configurer le projet localement :
 
 1. Clonez ce dépôt sur votre machine locale :
-      git clone https://exemple.com/weatherapp.git
-      cd weatherapp
+
+```bash
+# Commande pour cloner le dépôt
+git clone https://exemple.com/weatherapp.git
+cd weatherapp
+```
 
 2. Installez les dépendances :
-       npm install
+
+```bash
+# Commande pour installer les dépendances
+npm install
+```
    
-4. Démarrez le serveur :
-       npm start
+3. Démarrez le serveur :
+
+```bash
+# Commande pour lancer l'application
+npm start
+```
 
 L'application sera accessible sur le port 3000 ('http://localhost:3000')
 
@@ -32,32 +44,38 @@ Utilisez l'application pour consulter les prévisions météorologiques de la jo
 
 1. Accéder à la page d'accueil (qui affiche la liste des villes ajoutées)
    
-![Screen : HomePage][sreens_ui/HomePage.png]
+![HomePage](screens_ui/HomePage.png)
 
 2. Ajouter une ville
 
-![Screen : AddCityForm][sreens_ui/AddCityPage.png]
+![AddCityForm](screens_ui/AddCityPage.png)
 
 3. Rechercher une ville
 
-![Screen : SearchCityBar][sreens_ui/SearchCityBar.png]
+![SearchCityBar](screens_ui/SearchCityBar.png)
 
-![Screen : SearchCityBar][sreens_ui/SearchCityBar_2.png]
+![SearchCityBar Continued](screens_ui/SearchCityBar_2.png)
 
 4. Consulter la météo d'une ville donnée
 
-![Screen : WeatherPage][sreens_ui/WeatherPage.png]
+![WeatherPage](screens_ui/WeatherPage.png)
 
-![Screen : WeatherPage][sreens_ui/WeatherPage_2.png]
+![WeatherPage Continued](screens_ui/WeatherPage_2.png)
 
-Plus de screenshoots disponibles dans le dossier 'screens_ui/' (responsive design).
+Plus de screenshoots disponibles dans le dossier `screens_ui` (responsive design).
 
 ## Documentation
 
 La documentation du code est générée à l'aide de JSDoc. Vous pouvez la consulter en ouvrant le fichier `index.html` situé dans le dossier `docs`.
-Placez vous au niveau du dossier doc et lancer la commande :
-        http-server
 
-#### Auteur
+```bash
+# Naviguez au dossier doc
+cd doc
+
+# Lancez le serveur HTTP
+http-server
+```
+
+## Auteur
 
 Beatriz Moura - Développement initial - BeaMoura0906
