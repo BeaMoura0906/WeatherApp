@@ -1,0 +1,17 @@
+{
+    "source" : {
+        "include" : [
+            "app.js",
+            "database.js",
+            "initDb.js",
+            "./routes",
+            "./models"
+        ],
+        "includePattern" : ".+\\.js(doc|x)?$",
+        "excludePattern" : "(^|\\/|\\\\)_"
+    },
+    "opts" : {
+        "recurse" : true,
+        "destination" : "./docs/"
+    }
+}
