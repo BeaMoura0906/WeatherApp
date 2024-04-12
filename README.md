@@ -54,7 +54,7 @@ Utilisez l'application pour consulter les prévisions météorologiques de la jo
 
 ![SearchCityBar](screens_ui/SearchCityBar.png)
 
-![SearchCityBar Continued](screens_ui/SearchCityBar_2.png)
+![SearchCityBar Continued](screens_ui/SearchCityBar_results.png)
 
 4. Consulter la météo d'une ville donnée
 
